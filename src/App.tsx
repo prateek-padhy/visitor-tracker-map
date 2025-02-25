@@ -3,7 +3,8 @@ import "mapbox-gl/dist/mapbox-gl.css";
 
 function App() {
   return (
-      <Map />
+      // <Map />
+      <h1>Hello GitHub pages!</h1>
   );
 }
 
