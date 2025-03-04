@@ -10,8 +10,7 @@ import AddVisitorOverlay from "./AddVisitorOverlay";
 import VisitorControl from "./VisitorControl";
 import "mapbox-gl/dist/mapbox-gl.css";
 
-const TOKEN =
-  "pk.eyJ1IjoicHJhdGVlay1wYWRoeSIsImEiOiJjbTc5Z2ptMGwwNDRyMnJzYm1hM3lweW01In0.XtTCyFimo951D2wU1V0mkA";
+const TOKEN = import.meta.env.VITE_MAPBOX_KEY!;
 
 const VisitorMap = () => {
   const mapRef = useRef<MapRef>(null);

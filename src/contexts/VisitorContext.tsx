@@ -8,10 +8,11 @@ import {
 import { createClient } from "@supabase/supabase-js";
 
 const supabaseTable = "Visitor";
-const supabaseUrl = "https://otrbejvtipnfsbdpcdxy.supabase.co";
-const supabaseKey =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im90cmJlanZ0aXBuZnNiZHBjZHh5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDEwNDQxOTQsImV4cCI6MjA1NjYyMDE5NH0.0HRwxWWicut38DZvsa5Zl6rNXZkA1eK5Q7pQq2GFojw";
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL!;
+const supabaseKey = import.meta.env.VITE_SUPABASE_KEY!;
 const supabase = createClient(supabaseUrl, supabaseKey);
+
+console.log("Supabase URL: ", supabaseUrl);
 
 interface Visitor {
   country: string;
