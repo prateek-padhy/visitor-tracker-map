@@ -2,57 +2,35 @@ import { useRef, useState } from "react";
 import Map, {
   NavigationControl,
   FullscreenControl,
-  useMap,
   MapRef,
 } from "react-map-gl";
-
+import { useVisitors } from "../../contexts/VisitorContext";
 import VisitorMarker from "./VisitorMarker";
 import AddVisitorOverlay from "./AddVisitorOverlay";
 import VisitorControl from "./VisitorControl";
-
 import "mapbox-gl/dist/mapbox-gl.css";
 
 const TOKEN =
   "pk.eyJ1IjoicHJhdGVlay1wYWRoeSIsImEiOiJjbTc5Z2ptMGwwNDRyMnJzYm1hM3lweW01In0.XtTCyFimo951D2wU1V0mkA";
 
-interface Visitor {
-  country: string;
-  count: number;
-  coordinates: [number, number];
-}
-
 const VisitorMap = () => {
   const mapRef = useRef<MapRef>(null);
+  
+  const { visitors, addVisitor } = useVisitors();
 
   const [showAddVisitor, setShowAddVisitor] = useState(false);
   const [showVisitors, setShowVisitors] = useState(true);
-  const [visitors, setVisitors] = useState<Visitor[]>([]);
 
-  const addVisitor = (
+  const handleAddVisitor = async (
     country: string,
     count: number,
     coordinates: [number, number]
   ) => {
-    setVisitors((prev) => {
-      const countryIndex = prev.findIndex((v) => v.country === country);
-      if (countryIndex === -1) {
-        return [
-          ...prev,
-          {
-            country,
-            count,
-            coordinates: [coordinates?.[1], coordinates?.[0]],
-          },
-        ];
-      }
-
-      const updatedVisitors = [...prev];
-      updatedVisitors[countryIndex].count += count;
-      return updatedVisitors;
+    await addVisitor({count, country, latitude: coordinates[0], longitude: coordinates[1]});
+    mapRef.current?.flyTo({
+      center: [coordinates?.[1], coordinates?.[0]],
+      zoom: 8,
     });
-
-    mapRef.current?.flyTo({center: [ coordinates?.[1], coordinates?.[0] ], zoom: 8});
-
     setShowAddVisitor(false);
   };
 
@@ -81,7 +59,7 @@ const VisitorMap = () => {
       {showAddVisitor && (
         <AddVisitorOverlay
           onClose={() => setShowAddVisitor(false)}
-          onAddVisitor={addVisitor}
+          onAddVisitor={handleAddVisitor}
         />
       )}
 
@@ -91,8 +69,8 @@ const VisitorMap = () => {
             key={visitor.country}
             name={visitor.country}
             count={visitor.count}
-            longitude={visitor.coordinates[0]}
-            latitude={visitor.coordinates[1]}
+            longitude={visitor.longitude}
+            latitude={visitor.latitude}
           />
         ))}
     </Map>
