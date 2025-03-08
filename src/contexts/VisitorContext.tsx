@@ -12,8 +12,6 @@ const supabaseUrl = import.meta.env.VITE_SUPABASE_URL!;
 const supabaseKey = import.meta.env.VITE_SUPABASE_KEY!;
 const supabase = createClient(supabaseUrl, supabaseKey);
 
-console.log("Supabase URL: ", supabaseUrl);
-
 interface Visitor {
   country: string;
   count: number;
@@ -45,8 +43,6 @@ export function VisitorProvider({ children }: { children: ReactNode }) {
       console.error("Error fetching visitors:", error);
       return;
     }
-
-    console.log("Visitors: ", visitors);
 
     if (visitors) {
       setVisitors(visitors);

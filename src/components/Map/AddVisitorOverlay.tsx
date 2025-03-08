@@ -126,7 +126,6 @@ const AddVisitorOverlay = ({
   const handleAddVisitor = () => {
     const country = countries.find((c) => c.name.common === selectedCountry);
     if (country) {
-        console.log(country.latlng);
       onAddVisitor(selectedCountry, visitorCount, country.latlng);
     }
   };
