@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import {CirclePlus, Eye, EyeOff} from 'lucide-react'
 
 const StyledVisitorControl = styled.div`
     position: absolute;
@@ -17,15 +18,16 @@ const StyledControlButton = styled.button`
   background-color: rgba(255, 255, 255, 1);
   border-radius: 4px;
   padding: 8px;
-  font-size: 16px;
 `;
 
 type VisitorControlProps = {
+  showVisitors?: boolean;
   onShowAddVisitor?: () => void;
   onShowVisitors?: () => void;
 };
 
 const VisitorControl = ({
+  showVisitors,
   onShowAddVisitor,
   onShowVisitors,
 }: VisitorControlProps) =>  (
@@ -35,14 +37,14 @@ const VisitorControl = ({
           onShowAddVisitor?.();
         }}
       >
-        ➕
+        <CirclePlus color='#5a32a8'/>
       </StyledControlButton>
       <StyledControlButton
         onClick={() => {
           onShowVisitors?.();
         }}
       >
-        👁️‍🗨️
+        {showVisitors ? <Eye color='#5a32a8'/> : <EyeOff color='#a8325a' />}
       </StyledControlButton>
     </StyledVisitorControl>
   );

@@ -51,6 +51,7 @@ const VisitorMap = () => {
       <NavigationControl position="top-right" />
       <FullscreenControl position="top-right" />
       <VisitorControl
+        showVisitors={showVisitors}
         onShowAddVisitor={() => setShowAddVisitor(!showAddVisitor)}
         onShowVisitors={() => setShowVisitors(!showVisitors)}
       />
